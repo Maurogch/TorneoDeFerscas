@@ -38,4 +38,12 @@ public class Humano {
     public void setPeso(Integer peso) {
         this.peso = peso;
     }
+
+    public Orinar getOrinar() {
+        return orinar;
+    }
+
+    public Beber getBeber() {
+        return beber;
+    }
 }
