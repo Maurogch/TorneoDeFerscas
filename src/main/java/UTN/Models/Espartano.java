@@ -1,13 +1,13 @@
 package UTN.Models;
 
-import UTN.Interfaces.Beber;
-import UTN.Interfaces.Orinar;
+import UTN.Behaviours.BeberEspartanoImp;
+import UTN.Behaviours.OrinarEspartanoImp;
 
 public class Espartano extends Humano{
     private Integer toleranciaExtra;
 
-    public Espartano(String nombre, Integer edad, Integer peso, Orinar orinar, Beber beber, Integer toleranciaExtra) {
-        super(nombre, edad, peso, orinar, beber);
+    public Espartano(String nombre, Integer edad, Integer peso, Integer toleranciaExtra) {
+        super(nombre, edad, peso, new OrinarEspartanoImp(), new BeberEspartanoImp());
         this.toleranciaExtra = toleranciaExtra;
     }
 
