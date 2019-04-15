@@ -15,4 +15,12 @@ public class Vikingo extends Humano {
     public void setToleranciaExtra(Integer toleranciaExtra) {
         this.toleranciaExtra = toleranciaExtra;
     }
+
+    @Override
+    public String toString() {
+        return "Vikingo{" +
+                super.toString() + ", " +
+                "toleranciaExtra=" + toleranciaExtra +
+                '}';
+    }
 }

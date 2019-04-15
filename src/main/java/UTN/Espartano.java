@@ -15,4 +15,12 @@ public class Espartano extends Humano{
     public void setBebedorProfecional(Integer bebedorProfecional) {
         this.bebedorProfecional = bebedorProfecional;
     }
+
+    @Override
+    public String toString() {
+        return "Espartano{" +
+                super.toString() + ", " +
+                "bebedorProfecional=" + bebedorProfecional +
+                '}';
+    }
 }

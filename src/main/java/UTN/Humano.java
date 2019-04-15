@@ -6,13 +6,15 @@ public class Humano {
     private Integer peso;
     private Orinar orinar;
     private Beber beber;
+    private Integer bebidaEnCurpo;
 
-    public Humano(String nombre, Integer edad, Integer peso, Orinar orinar, Beber beber) {
+    protected Humano(String nombre, Integer edad, Integer peso, Orinar orinar, Beber beber) {
         this.nombre = nombre;
         this.edad = edad;
         this.peso = peso;
         this.orinar = orinar;
         this.beber = beber;
+        this.bebidaEnCurpo = 0;
     }
 
     public String getNombre() {
@@ -39,11 +41,27 @@ public class Humano {
         this.peso = peso;
     }
 
-    public Orinar getOrinar() {
-        return orinar;
+    public Integer getBebidaEnCurpo() {
+        return bebidaEnCurpo;
     }
 
-    public Beber getBeber() {
-        return beber;
+    public void setBebidaEnCurpo(Integer bebidaEnCurpo) {
+        this.bebidaEnCurpo = bebidaEnCurpo;
     }
+
+    @Override
+    public String toString() {
+        return "nombre='" + nombre + '\'' +
+                ", edad=" + edad +
+                ", peso=" + peso +
+                ", bebidaEnCurpo=" + bebidaEnCurpo;
+    }
+
+    public Integer Orinar() {
+        return orinar.Orinar();
+    } //return implementation method, easier to call in main
+
+    public Integer Beber() {
+        return beber.Beber();
+    } //return implementation method
 }
