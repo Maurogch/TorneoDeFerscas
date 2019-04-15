@@ -1,5 +1,14 @@
 package UTN;
 
+import UTN.Behaviours.BeberEspartanoImp;
+import UTN.Behaviours.BeberVikingoImp;
+import UTN.Behaviours.OrinarEspartanoImp;
+import UTN.Behaviours.OrinarVikingoImp;
+import UTN.Models.Espartano;
+import UTN.Models.Humano;
+import UTN.Models.Vikingo;
+import UTN.Models.VikingoEspartano;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;

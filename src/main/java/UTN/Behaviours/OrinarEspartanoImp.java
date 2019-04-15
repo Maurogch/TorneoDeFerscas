@@ -1,4 +1,6 @@
-package UTN;
+package UTN.Behaviours;
+
+import UTN.Interfaces.Orinar;
 
 import java.util.concurrent.ThreadLocalRandom;
 

@@ -1,4 +1,7 @@
-package UTN;
+package UTN.Models;
+
+import UTN.Interfaces.Beber;
+import UTN.Interfaces.Orinar;
 
 public class Espartano extends Humano{
     private Integer toleranciaExtra;
