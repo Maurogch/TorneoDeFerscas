@@ -3,6 +3,7 @@ package UTN;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.Comparator.comparing;
 
@@ -10,9 +11,6 @@ public class App
 {
     public static void main( String[] args )
     {
-        /*Humano v = new Vikingo("Asmund Hjorleifsson", 20, 72, new OrinarVikingoImp(), new BeberVikingoImp(), 8);
-        Humano e = new Espartano("Iasonas Giannopoulos", 21, 80, new OrinarEspartanoImp(), new BeberEspartanoImp(), 7);*/
-
         List<Humano> vikingos = new LinkedList<> (Arrays.<Humano>asList( //force Humano list
                 new Vikingo("Asmund Hjorleifsson", 20, 72, new OrinarVikingoImp(), new BeberVikingoImp(), 8),
                 new Vikingo("Hjort Leiknirsson", 21, 62, new OrinarVikingoImp(), new BeberVikingoImp(), 15),
@@ -49,9 +47,22 @@ public class App
         espartanos.forEach(System.out::println);
         System.out.println("-----------------------------------------------------------------------\n");
 
+        Humano ganador = Torneo(vikingos, espartanos);
+
+        if(!Objects.isNull(ganador)){
+            System.out.println("==========================================================================");
+            System.out.println("                         GANADOR FINAL DEL TORNEO");
+            System.out.println("==========================================================================");
+            System.out.println(ganador.toString());
+        }
+    }
+
+    public static Humano Torneo(List<Humano> vikingos, List<Humano> espartanos){
+        Humano ganador = null;
+
         try {
             int count = 1;
-            Humano ganador = null;
+
 
             while (vikingos.size() > 0 && espartanos.size() > 0) {
 
@@ -78,18 +89,13 @@ public class App
 
                 count++;
             }
-
-            System.out.println("==========================================================================");
-            System.out.println("                         GANADOR FINAL DEL TORNEO");
-            System.out.println("==========================================================================");
-            System.out.println(ganador.toString());
         } catch (NotVikingOrSpartanException ex) {
             System.out.println(ex.getMessage());
-        } catch (NullPointerException ex){
-            System.out.println("Ganador imposible de determinar, ya que una o ambas listas estaban vacías");
         } catch (Exception ex){
             ex.printStackTrace();
         }
+
+        return ganador;
     }
 
     public static Humano Enfrentamiento(Humano v, Humano e) throws NotVikingOrSpartanException {
@@ -104,8 +110,31 @@ public class App
         int liquidoVikingo = 0;
         int liquidoEspartano = 0;
 
+        int liquidoParticipante1 = 0;
+        int liquidoParticipante2 = 0;
+
         //Drinking bouts untill one can not longer go
         while (liquidoVikingo <= 1000 && liquidoEspartano <= 1000) {
+            liquidoVikingo += v.Beber() - ((Vikingo) v).getBebedorProfecional();
+            if(liquidoVikingo < 0) liquidoVikingo = 0; //no negative drinking values
+            liquidoVikingo += v.Orinar();
+
+            liquidoEspartano += e.Beber();
+            liquidoEspartano += e.Orinar() - ((Espartano) e).getToleranciaExtra();
+            if(liquidoEspartano < 0) liquidoEspartano = 0;
+
+            if(v instanceof Vikingo){
+
+            }
+
+
+            System.out.println("Vikingo: " + liquidoVikingo);
+            System.out.println("Espartano: " + liquidoEspartano);
+
+        }
+
+        //Drinking bouts untill one can not longer go
+        /*while (liquidoVikingo <= 1000 && liquidoEspartano <= 1000) {
             liquidoVikingo += v.Beber() - ((Vikingo) v).getToleranciaExtra();
             if(liquidoVikingo < 0) liquidoVikingo = 0; //no negative drinking values
             liquidoVikingo += v.Orinar();
@@ -117,8 +146,8 @@ public class App
             /*For debugging battle
             System.out.println("Vikingo: " + liquidoVikingo);
             System.out.println("Espartano: " + liquidoEspartano);
-            */
-        }
+
+        }*/
 
         v.setBebidaEnCurpo(liquidoVikingo);
         e.setBebidaEnCurpo(liquidoEspartano);

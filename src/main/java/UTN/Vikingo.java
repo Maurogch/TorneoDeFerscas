@@ -1,26 +1,26 @@
 package UTN;
 
 public class Vikingo extends Humano {
-    private Integer toleranciaExtra;
+    private Integer bebedorProfecional;
 
-    public Vikingo(String nombre, Integer edad, Integer peso, Orinar orinar, Beber beber, Integer toleranciaExtra) {
+    public Vikingo(String nombre, Integer edad, Integer peso, Orinar orinar, Beber beber, Integer bebedorProfecional) {
         super(nombre, edad, peso, orinar, beber);
-        this.toleranciaExtra = toleranciaExtra;
+        this.bebedorProfecional = bebedorProfecional;
     }
 
-    public Integer getToleranciaExtra() {
-        return toleranciaExtra;
+    public Integer getBebedorProfecional() {
+        return bebedorProfecional;
     }
 
-    public void setToleranciaExtra(Integer toleranciaExtra) {
-        this.toleranciaExtra = toleranciaExtra;
+    public void setBebedorProfecional(Integer bebedorProfecional) {
+        this.bebedorProfecional = bebedorProfecional;
     }
 
     @Override
     public String toString() {
-        return "Vikingo{" +
+        return "Espartano{" +
                 super.toString() + ", " +
-                "toleranciaExtra=" + toleranciaExtra +
+                "bebedorProfecional=" + bebedorProfecional +
                 '}';
     }
 }

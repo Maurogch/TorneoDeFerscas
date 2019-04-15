@@ -1,26 +1,26 @@
 package UTN;
 
 public class Espartano extends Humano{
-    private Integer bebedorProfecional;
+    private Integer toleranciaExtra;
 
-    public Espartano(String nombre, Integer edad, Integer peso, Orinar orinar, Beber beber, Integer bebedorProfecional) {
+    public Espartano(String nombre, Integer edad, Integer peso, Orinar orinar, Beber beber, Integer toleranciaExtra) {
         super(nombre, edad, peso, orinar, beber);
-        this.bebedorProfecional = bebedorProfecional;
+        this.toleranciaExtra = toleranciaExtra;
     }
 
-    public Integer getBebedorProfecional() {
-        return bebedorProfecional;
+    public Integer getToleranciaExtra() {
+        return toleranciaExtra;
     }
 
-    public void setBebedorProfecional(Integer bebedorProfecional) {
-        this.bebedorProfecional = bebedorProfecional;
+    public void setToleranciaExtra(Integer toleranciaExtra) {
+        this.toleranciaExtra = toleranciaExtra;
     }
 
     @Override
     public String toString() {
-        return "Espartano{" +
+        return "Vikingo{" +
                 super.toString() + ", " +
-                "bebedorProfecional=" + bebedorProfecional +
+                "toleranciaExtra=" + toleranciaExtra +
                 '}';
     }
 }
