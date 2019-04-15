@@ -30,6 +30,20 @@ public class VikingoEspartano extends Humano {
     }
 
     @Override
+    public Integer Orinar() {
+        int res =super.Orinar() - toleranciaExtra;
+        if(res < 0) res = 0;
+        return res;
+    }
+
+    @Override
+    public Integer Beber() {
+        int res =super.Orinar() - bebedorProfecional;
+        if(res < 0) res = 0;
+        return res;
+    }
+
+    @Override
     public String toString() {
         return "VikingoEspartano{" +
                 super.toString() + ", " +

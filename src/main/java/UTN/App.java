@@ -130,8 +130,17 @@ public class App
 
         //Drinking bouts until one can not longer go
         while (liquidoParticipante1 <= 1000 && liquidoParticipante2 <= 1000) {
+
+            liquidoParticipante1 += participante1.Beber();
+            liquidoParticipante1 += participante1.Orinar();
+
+            liquidoParticipante2 += participante2.Beber();
+            liquidoParticipante2 += participante2.Orinar();
+
+            /*Deprecated method
             liquidoParticipante1 += Drink(participante1);
             liquidoParticipante2 += Drink(participante2);
+            */
 
             //For debugging
             /*System.out.println("Participante1: " + liquidoParticipante1);
@@ -157,6 +166,8 @@ public class App
         }
     }
 
+    /*
+    * Discarded method, not needed to cast if the substraction of the attribute is done in the class
     public static int Drink(Humano participante){
         int liquido = 0;
 
@@ -183,6 +194,6 @@ public class App
         if(liquido < 0) liquido = 0;
 
         return liquido;
-    }
+    }*/
 
 }
