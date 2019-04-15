@@ -11,6 +11,8 @@ public class App
 {
     public static void main( String[] args )
     {
+        Humano dueno = new VikingoEspartano("Ragnar Leonidas", 40,79, new OrinarEspartanoImp(), new BeberVikingoImp(),15, 15);
+
         List<Humano> vikingos = new LinkedList<> (Arrays.<Humano>asList( //force Humano list
                 new Vikingo("Asmund Hjorleifsson", 20, 72, new OrinarVikingoImp(), new BeberVikingoImp(), 8),
                 new Vikingo("Hjort Leiknirsson", 21, 62, new OrinarVikingoImp(), new BeberVikingoImp(), 15),
@@ -54,6 +56,16 @@ public class App
             System.out.println("                         GANADOR FINAL DEL TORNEO");
             System.out.println("==========================================================================");
             System.out.println(ganador.toString());
+
+            System.out.println("\nEnfrentamiento Bonus: ");
+            System.out.println(dueno);
+            System.out.println("VS");
+            System.out.println(ganador);
+
+            ganador = Enfrentamiento(dueno,ganador);
+
+            System.out.println("***Ganador enfrentamiento bonus: " + ganador.getClass().getSimpleName() + ", " +
+                    ganador.getNombre() + ", Cantidad bebido: " + ganador.getBebidaEnCurpo() + "***");
         }
     }
 
@@ -89,80 +101,68 @@ public class App
 
                 count++;
             }
-        } catch (NotVikingOrSpartanException ex) {
-            System.out.println(ex.getMessage());
-        } catch (Exception ex){
+        }catch (Exception ex){
             ex.printStackTrace();
         }
 
         return ganador;
     }
 
-    public static Humano Enfrentamiento(Humano v, Humano e) throws NotVikingOrSpartanException {
-        if(!(v instanceof Vikingo)){
-            throw new NotVikingOrSpartanException("Primera instancia debe ser del tipo Vikingo");
-        }
-
-        if(!(e instanceof Espartano)){
-            throw new NotVikingOrSpartanException("Primera instancia debe ser del tipo Espartano");
-        }
-
-        int liquidoVikingo = 0;
-        int liquidoEspartano = 0;
-
+    public static Humano Enfrentamiento(Humano participante1, Humano participante2){
         int liquidoParticipante1 = 0;
         int liquidoParticipante2 = 0;
 
-        //Drinking bouts untill one can not longer go
-        while (liquidoVikingo <= 1000 && liquidoEspartano <= 1000) {
-            liquidoVikingo += v.Beber() - ((Vikingo) v).getBebedorProfecional();
-            if(liquidoVikingo < 0) liquidoVikingo = 0; //no negative drinking values
-            liquidoVikingo += v.Orinar();
+        //Drinking bouts until one can not longer go
+        while (liquidoParticipante1 <= 1000 && liquidoParticipante2 <= 1000) {
+            liquidoParticipante1 += Drink(participante1);
+            liquidoParticipante2 += Drink(participante2);
 
-            liquidoEspartano += e.Beber();
-            liquidoEspartano += e.Orinar() - ((Espartano) e).getToleranciaExtra();
-            if(liquidoEspartano < 0) liquidoEspartano = 0;
-
-            if(v instanceof Vikingo){
-
-            }
-
-
-            System.out.println("Vikingo: " + liquidoVikingo);
-            System.out.println("Espartano: " + liquidoEspartano);
-
+            //For debugging
+            /*System.out.println("Participante1: " + liquidoParticipante1);
+            System.out.println("Participante2: " + liquidoParticipante2);
+            */
         }
 
-        //Drinking bouts untill one can not longer go
-        /*while (liquidoVikingo <= 1000 && liquidoEspartano <= 1000) {
-            liquidoVikingo += v.Beber() - ((Vikingo) v).getToleranciaExtra();
-            if(liquidoVikingo < 0) liquidoVikingo = 0; //no negative drinking values
-            liquidoVikingo += v.Orinar();
-
-            liquidoEspartano += e.Beber();
-            liquidoEspartano += e.Orinar() - ((Espartano) e).getBebedorProfecional();
-            if(liquidoEspartano < 0) liquidoEspartano = 0;
-
-            /*For debugging battle
-            System.out.println("Vikingo: " + liquidoVikingo);
-            System.out.println("Espartano: " + liquidoEspartano);
-
-        }*/
-
-        v.setBebidaEnCurpo(liquidoVikingo);
-        e.setBebidaEnCurpo(liquidoEspartano);
+        participante1.setBebidaEnCurpo(liquidoParticipante1);
+        participante2.setBebidaEnCurpo(liquidoParticipante2);
 
         //Return winner
-        if(liquidoVikingo < 1000) {
-            return v;
+        if(liquidoParticipante1 < 1000) {
+            return participante1;
         }
-        else if (liquidoEspartano < 1000){
-            return e;
+        else if (liquidoParticipante2 < 1000){
+            return participante2;
         }else{ //In case of draw
-            if(liquidoVikingo > liquidoEspartano)
-                return v;
+            if(liquidoParticipante1 > liquidoParticipante2)
+                return participante1;
             else
-                return e;
+                return participante2;
         }
+    }
+
+    public static int Drink(Humano participante){
+        int liquido = 0;
+
+        if(participante instanceof Vikingo){
+            liquido += participante.Beber() - ((Vikingo) participante).getBebedorProfecional();
+        }else if (participante instanceof VikingoEspartano){
+            liquido += participante.Beber() - ((VikingoEspartano) participante).getBebedorProfecional();
+        }else{
+            liquido += participante.Beber();
+        }
+
+        if(liquido < 0) liquido = 0; //no negative drinking values
+
+        if(participante instanceof Espartano){
+            liquido += participante.Orinar() - ((Espartano) participante).getToleranciaExtra();
+        }else if (participante instanceof VikingoEspartano){
+            liquido += participante.Orinar() - ((VikingoEspartano) participante).getToleranciaExtra();
+        }else {
+            liquido += participante.Orinar();
+        }
+
+        if(liquido < 0) liquido = 0;
+
+        return liquido;
     }
 }
