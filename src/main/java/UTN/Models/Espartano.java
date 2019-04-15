@@ -20,6 +20,13 @@ public class Espartano extends Humano{
     }
 
     @Override
+    public Integer Orinar() {
+        int res =super.Orinar() - toleranciaExtra;
+        if(res < 0) res = 0;
+        return res;
+    }
+
+    @Override
     public String toString() {
         return "Espartano{" +
                 super.toString() + ", " +
