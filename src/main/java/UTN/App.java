@@ -4,10 +4,8 @@ import UTN.Behaviours.BeberEspartanoImp;
 import UTN.Behaviours.BeberVikingoImp;
 import UTN.Behaviours.OrinarEspartanoImp;
 import UTN.Behaviours.OrinarVikingoImp;
-import UTN.Models.Espartano;
-import UTN.Models.Humano;
-import UTN.Models.Vikingo;
-import UTN.Models.VikingoEspartano;
+import UTN.Database.JDBC;
+import UTN.Models.*;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -66,7 +64,13 @@ public class App
             System.out.println("==========================================================================");
             System.out.println(ganador.toString());
 
-            System.out.println("\nEnfrentamiento Bonus: ");
+            JDBC.getInstance().setGanador(ganador);
+
+            historialDeGanadores();
+
+            System.out.println("\n==========================================================================");
+            System.out.println("                    Enfrentamiento Bonus ");
+            System.out.println("==========================================================================");
             System.out.println(dueno);
             System.out.println("VS");
             System.out.println(ganador);
@@ -100,7 +104,7 @@ public class App
                 System.out.println("***Ganador enfrentamiento " + count + ": " + ganador.getClass().getSimpleName() + ", " +
                         ganador.getNombre() + ", Cantidad bebido: " + ganador.getBebidaEnCurpo() + "***");
 
-                if(ganador instanceof Vikingo)
+                if(ganador instanceof Espartano)
                     ((LinkedList<Humano>) vikingos).removeFirst();
                 else
                     ((LinkedList<Humano>) espartanos).removeFirst();
@@ -173,5 +177,11 @@ public class App
         if(liquido < 0) liquido = 0;
 
         return liquido;
+    }
+
+    public static void historialDeGanadores(){
+        List<Ganador> ganadores = JDBC.getInstance().getGanadores();
+        System.out.println("\n--------HISTORIAL DE GANADORES---------");
+        ganadores.forEach(System.out::println);
     }
 }
