@@ -1,4 +1,7 @@
-package UTN;
+package UTN.Models;
+
+import UTN.Interfaces.Beber;
+import UTN.Interfaces.Orinar;
 
 public class Humano {
     private String nombre;
