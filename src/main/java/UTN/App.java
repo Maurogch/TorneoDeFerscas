@@ -77,22 +77,21 @@ public class App
             JDBC.getInstance().setGanador(ganador);
             historialDeGanadores();
 
-            System.out.println("\n╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
-            System.out.println("║                                                   Enfrentamiento Bonus                                                      ║");
-            System.out.println("╟ ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╢");
-            System.out.format("║ %s %"+(123 - dueno.toString().length())+"s║%n", dueno, "");
-            System.out.println("║                                                            VS                                                               ║");
-            System.out.format("║ %s %"+(123 - ganador.toString().length())+"s║%n", ganador, "");
-            System.out.println("╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣");
-            System.out.println("║                                                     Ganador Bonus                                                           ║");
-            System.out.println("╟ ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╢");
-            ganador = Enfrentamiento(dueno,ganador);
+            //Doing ASCII table by puting spaces in repated caracters for lines, then replacing that space with corresponding ascii character
+            System.out.println(String.format("\n╔%125s╗","").replace(" ","═"));
+            System.out.println(String.format("║%51s"+"Enfrentamiento Bonus"+"%54s║","",""));
+            System.out.println(String.format("╟%125s╢","").replace(" ","─"));
+            System.out.format("║ %s %"+(123 - dueno.toString().length())+"s║%n", dueno, ""); //Present owner
+            System.out.println(String.format("║%60s"+"VS"+"%63s║","",""));
+            System.out.format("║ %s %"+(123 - ganador.toString().length())+"s║%n", ganador, ""); //Present previous winner
+            System.out.println(String.format("╟%125s╢","").replace(" ","═"));
+            System.out.println(String.format("║%53s"+"Ganador Bonus"+"%59s║","",""));
+            System.out.println(String.format("╟%125s╢","").replace(" ","─"));
 
-            System.out.format("║ %s %"+(123 - ganador.toString().length())+"s║%n", ganador, "");
-            System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+            ganador = Enfrentamiento(dueno,ganador); //call bout
 
-            //System.out.println("***Ganador enfrentamiento bonus: " + ganador.getClass().getSimpleName() + ", " +
-              //      ganador.getNombre() + ", Cantidad bebido: " + ganador.getBebidaEnCurpo() + "***");
+            System.out.format("║ %s %"+(123 - ganador.toString().length())+"s║%n", ganador, ""); //Show winner
+            System.out.println(String.format("╚%125s╝","").replace(" ","═"));
         }
     }
 
