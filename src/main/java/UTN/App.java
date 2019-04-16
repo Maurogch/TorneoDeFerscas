@@ -77,6 +77,7 @@ public class App
             JDBC.getInstance().setGanador(ganador);
             historialDeGanadores();
 
+            //Bout with Tavern Owner
             //Doing ASCII table by puting spaces in repated caracters for lines, then replacing that space with corresponding ascii character
             System.out.println(String.format("\n╔%125s╗","").replace(" ","═"));
             System.out.println(String.format("║%51s"+"Enfrentamiento Bonus"+"%54s║","",""));
