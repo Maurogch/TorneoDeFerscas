@@ -42,47 +42,67 @@ public class App
                 new Espartano("Chrysanthos Athanas", 21, 79, 13)
         ));
 
-        System.out.println("---------------------------Equipo Vikingos----------------------------");
-        vikingos.sort(comparing(Humano::getPeso));
-        vikingos.forEach(System.out::println);
-        System.out.println("----------------------------------------------------------------------\n");
+        System.out.println("     ______                                   __        ______                              ");
+        System.out.println("    /_  __/___  _________  ___  ____     ____/ /__     / ____/_______  ______________ ______");
+        System.out.println("     / / / __ \\/ ___/ __ \\/ _ \\/ __ \\   / __  / _ \\   / /_  / ___/ _ \\/ ___/ ___/ __ `/ ___/");
+        System.out.println("    / / / /_/ / /  / / / /  __/ /_/ /  / /_/ /  __/  / __/ / /  /  __(__  ) /__/ /_/ (__  ) ");
+        System.out.println("   /_/  \\____/_/  /_/ /_/\\___/\\____/   \\__,_/\\___/  /_/   /_/   \\___/____/\\___/\\__,_/____/  ");
 
-        System.out.println("---------------------------Equipo Espartanos---------------------------");
+        System.out.println("\n+---------------------------------------------------------------------------------------------------+");
+        System.out.println("|                                         Equipo Vikingos                                           |");
+        System.out.println("+---------------------------------------------------------------------------------------------------+");
+        vikingos.sort(comparing(Humano::getPeso));
+        //vikingos.forEach(System.out::println); //print without box formating
+        vikingos.forEach(o->System.out.format("| %s %"+(97 - o.toString().length())+"s|%n", o, "")); //%(number)s puts spaces in between, works in format, here we are getting the total lenght of the table and subtracting the legnth of the string, after that the "|", and %n to jump a line
+        System.out.println("+---------------------------------------------------------------------------------------------------+\n");
+
+        System.out.println("+---------------------------------------------------------------------------------------------------+");
+        System.out.println("|                                        Equipo Espartanos                                          |");
+        System.out.println("+---------------------------------------------------------------------------------------------------+");
         espartanos.sort(comparing(Humano::getPeso));
-        espartanos.forEach(System.out::println);
-        System.out.println("-----------------------------------------------------------------------\n");
+        espartanos.forEach(o->System.out.format("| %s %"+(97 - o.toString().length())+"s|%n", o,""));
+        System.out.println("+---------------------------------------------------------------------------------------------------+\n");
 
         //Begin Torunament - Returns winner
         Humano ganador = Torneo(vikingos, espartanos);
 
         if(!Objects.isNull(ganador)){
-            System.out.println("==========================================================================");
-            System.out.println("                         GANADOR FINAL DEL TORNEO");
-            System.out.println("==========================================================================");
-            System.out.println(ganador.toString());
+            System.out.println("╔════════════════════════════════════════════════════════════════════════════════════════════════╗");
+            System.out.println("║                                   GANADOR FINAL DEL TORNEO                                     ║");
+            System.out.println("╟ ───────────────────────────────────────────────────────────────────────────────────────────────╢");
+            System.out.format("║ %s %"+(94 - ganador.toString().length())+"s║%n", ganador, "");
+            System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════════════╝");
 
             //Store winner and get winners list
             JDBC.getInstance().setGanador(ganador);
             historialDeGanadores();
 
-            System.out.println("\n==========================================================================");
-            System.out.println("                    Enfrentamiento Bonus ");
-            System.out.println("==========================================================================");
-            System.out.println(dueno);
-            System.out.println("VS");
-            System.out.println(ganador);
-
+            System.out.println("\n╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+            System.out.println("║                                                   Enfrentamiento Bonus                                                      ║");
+            System.out.println("╟ ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╢");
+            System.out.format("║ %s %"+(123 - dueno.toString().length())+"s║%n", dueno, "");
+            System.out.println("║                                                            VS                                                               ║");
+            System.out.format("║ %s %"+(123 - ganador.toString().length())+"s║%n", ganador, "");
+            System.out.println("╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣");
+            System.out.println("║                                                     Ganador Bonus                                                           ║");
+            System.out.println("╟ ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╢");
             ganador = Enfrentamiento(dueno,ganador);
 
-            System.out.println("***Ganador enfrentamiento bonus: " + ganador.getClass().getSimpleName() + ", " +
-                    ganador.getNombre() + ", Cantidad bebido: " + ganador.getBebidaEnCurpo() + "***");
+            System.out.format("║ %s %"+(123 - ganador.toString().length())+"s║%n", ganador, "");
+            System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+
+            //System.out.println("***Ganador enfrentamiento bonus: " + ganador.getClass().getSimpleName() + ", " +
+              //      ganador.getNombre() + ", Cantidad bebido: " + ganador.getBebidaEnCurpo() + "***");
         }
     }
 
     public static void historialDeGanadores(){
         List<Ganador> ganadores = JDBC.getInstance().getGanadores();
-        System.out.println("\n--------HISTORIAL DE GANADORES---------");
-        ganadores.forEach(System.out::println);
+        System.out.println("\n+------------------------------------------------------------------------+");
+        System.out.println("|                        HISTORIAL DE GANADORES                          |");
+        System.out.println("+------------------------------------------------------------------------+");
+        ganadores.forEach(o->System.out.format("| %s %"+(70 - o.toString().length())+"s|%n", o, ""));
+        System.out.println("+------------------------------------------------------------------------+");
     }
 
     public static Humano Torneo(List<Humano> vikingos, List<Humano> espartanos){
@@ -148,7 +168,7 @@ public class App
             */
         }
 
-        //Store aount drank
+        //Store amount drank
         participante1.setBebidaEnCurpo(liquidoParticipante1);
         participante2.setBebidaEnCurpo(liquidoParticipante2);
 
@@ -167,7 +187,7 @@ public class App
     }
 
     /*
-    * Discarded method, not needed to cast if the substraction of the attribute is done in the class
+    * Discarded method, not needed to cast if the substraction of the attribute is done in the class.
     public static int Drink(Humano participante){
         int liquido = 0;
 
