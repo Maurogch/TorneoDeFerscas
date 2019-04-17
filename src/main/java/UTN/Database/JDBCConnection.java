@@ -21,12 +21,7 @@ public class JDBCConnection {
 
     public static JDBCConnection getInstance() {
         instance = Optional.ofNullable(instance).orElse(new JDBCConnection());
-        try {
-            if(instance.getConnection().isClosed()) //Check is current connection is closed
-                instance = new JDBCConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
         return instance;
     }
 

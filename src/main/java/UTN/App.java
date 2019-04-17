@@ -1,6 +1,6 @@
 package UTN;
 
-import UTN.Database.Queries;
+import UTN.Database.GanadorDAO;
 import UTN.Models.*;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -14,6 +14,7 @@ public class App
     public static void main( String[] args ) //DNI IMPAR
     {
         Humano dueno = new VikingoEspartano("Ragnar Leonidas", 40,79,15, 15);
+        GanadorDAO ganadorDao = new GanadorDAO();
 
         List<Humano> vikingos = new LinkedList<> (Arrays.<Humano>asList( //force Humano list
                 new Vikingo("Asmund Hjorleifsson", 20, 72, 8),
@@ -74,11 +75,11 @@ public class App
 
             //Store winner and get winners list
             try {
-                Queries.setGanador(ganador);
+                ganadorDao.setGanador(ganador);
             } catch (NullPointerException e) {
                 System.out.println("Error el ganador no puede ser nulo");
             }
-            historialDeGanadores();
+            historialDeGanadores(ganadorDao);
 
             //Bout with Tavern Owner
             //Doing ASCII table by puting spaces in repated caracters for lines, then replacing that space with corresponding ascii character
@@ -99,8 +100,8 @@ public class App
         }
     }
 
-    public static void historialDeGanadores(){
-        List<Ganador> ganadores = Queries.getGanadores();
+    public static void historialDeGanadores(GanadorDAO ganadorDAO){
+        List<Ganador> ganadores = ganadorDAO.getGanadores();
         System.out.println("\n+------------------------------------------------------------------------+");
         System.out.println("|                        HISTORIAL DE GANADORES                          |");
         System.out.println("+------------------------------------------------------------------------+");

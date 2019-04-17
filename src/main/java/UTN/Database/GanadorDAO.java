@@ -8,13 +8,15 @@ import UTN.Models.Ganador;
 import UTN.Models.Humano;
 import org.apache.commons.dbutils.DbUtils;
 
-public class Queries{
+public class GanadorDAO {
     private static final String TABLE = "Ganadores";
+    private Statement stmt = null;
+    private Connection conn = null;
+    private ResultSet rs = null;
+    private PreparedStatement pStmt = null;
 
-    public static List<Ganador> getGanadores(){
-        Statement stmt = null;
-        Connection conn = null;
-        ResultSet rs = null;
+    public List<Ganador> getGanadores(){
+
         List<Ganador> ganadores = new LinkedList<>();
 
         try {
@@ -32,26 +34,20 @@ public class Queries{
 
                 ganadores.add(new Ganador(id, nombre, liquido));
             }
-
+            rs.close();
+            stmt.close();
+            conn.close();
         } catch (SQLException e) {
             //Handle errors for JDBCConnection
             System.out.println("Error connecting to database");
             e.printStackTrace();
 
-        } finally {
-            //Clean-up environment, using DbUtils repository
-            //closeQuietly = Close a Connection, avoid closing if null and hide any SQLExceptions that occur.
-            DbUtils.closeQuietly(rs);
-            DbUtils.closeQuietly(stmt);
-            DbUtils.closeQuietly(conn);
         }
 
         return ganadores;
     }
 
-    public static int setGanador(Humano ganador) throws NullPointerException{
-        Connection conn = null;
-        PreparedStatement pStmt = null;
+    public int setGanador(Humano ganador) throws NullPointerException{
         int affectedRows = 0;
 
         if(Objects.isNull(ganador)) throw new NullPointerException();
@@ -67,12 +63,12 @@ public class Queries{
             pStmt.setInt(2,ganador.getBebidaEnCurpo());
 
             affectedRows = pStmt.executeUpdate();
+
+            pStmt.close();
+            conn.close();
         } catch (SQLException e) {
             System.out.println("Error connecting to database");
             e.printStackTrace();
-        } finally {
-            DbUtils.closeQuietly(pStmt);
-            DbUtils.closeQuietly(conn);
         }
 
         return affectedRows;
