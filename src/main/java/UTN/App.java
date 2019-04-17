@@ -1,8 +1,7 @@
 package UTN;
 
-import UTN.Database.JDBC;
+import UTN.Database.Queries;
 import UTN.Models.*;
-
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -67,14 +66,18 @@ public class App
         Humano ganador = Torneo(vikingos, espartanos);
 
         if(!Objects.isNull(ganador)){
-            System.out.println("╔════════════════════════════════════════════════════════════════════════════════════════════════╗");
-            System.out.println("║                                   GANADOR FINAL DEL TORNEO                                     ║");
-            System.out.println("╟ ───────────────────────────────────────────────────────────────────────────────────────────────╢");
-            System.out.format("║ %s %"+(94 - ganador.toString().length())+"s║%n", ganador, "");
-            System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════════════╝");
+            System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+            System.out.println("║                                      GANADOR FINAL DEL TORNEO                                       ║");
+            System.out.println("╟ ────────────────────────────────────────────────────────────────────────────────────────────────────╢");
+            System.out.format("║ %s %"+(99 - ganador.toString().length())+"s║%n", ganador, "");
+            System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝");
 
             //Store winner and get winners list
-            JDBC.getInstance().setGanador(ganador);
+            try {
+                Queries.setGanador(ganador);
+            } catch (NullPointerException e) {
+                System.out.println("Error el ganador no puede ser nulo");
+            }
             historialDeGanadores();
 
             //Bout with Tavern Owner
@@ -97,7 +100,7 @@ public class App
     }
 
     public static void historialDeGanadores(){
-        List<Ganador> ganadores = JDBC.getInstance().getGanadores();
+        List<Ganador> ganadores = Queries.getGanadores();
         System.out.println("\n+------------------------------------------------------------------------+");
         System.out.println("|                        HISTORIAL DE GANADORES                          |");
         System.out.println("+------------------------------------------------------------------------+");
@@ -148,7 +151,7 @@ public class App
         int liquidoParticipante1 = 0;
         int liquidoParticipante2 = 0;
 
-        //Drinking bouts until one can not longer go
+        //Drinking bouts until one participant can not longer go
         while (liquidoParticipante1 <= 1000 && liquidoParticipante2 <= 1000) {
 
             liquidoParticipante1 += participante1.Beber();
@@ -157,8 +160,8 @@ public class App
             liquidoParticipante2 += participante2.Beber();
             liquidoParticipante2 += participante2.Orinar();
 
-            /*Deprecated method
-            liquidoParticipante1 += Drink(participante1);
+            //Deprecated method
+            /*liquidoParticipante1 += Drink(participante1);
             liquidoParticipante2 += Drink(participante2);
             */
 
