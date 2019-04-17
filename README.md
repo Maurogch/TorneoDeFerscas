@@ -1,3 +1,5 @@
+ ![](tpInterfaces.png)
+
 # Torneo De Ferscas
 Primer TP Laboratorio 5 - Strategy Pattern
 
