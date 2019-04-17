@@ -9,6 +9,7 @@ import UTN.Models.Humano;
 import org.apache.commons.dbutils.DbUtils;
 
 public class Queries{
+    private static final String TABLE = "Ganadores";
 
     public static List<Ganador> getGanadores(){
         Statement stmt = null;
@@ -20,7 +21,7 @@ public class Queries{
             conn = JDBCConnection.getInstance().getConnection();
             stmt = conn.createStatement();
             String sql;
-            sql = "SELECT idGanador, nombreGanador, bebidaEnCuerpo FROM Ganadores";
+            sql = "SELECT idGanador, nombreGanador, bebidaEnCuerpo FROM " + TABLE;
             rs = stmt.executeQuery(sql);
 
             while(rs.next()){
@@ -58,7 +59,7 @@ public class Queries{
         try {
             conn = JDBCConnection.getInstance().getConnection();
             String sql;
-            sql = "INSERT INTO Ganadores (nombreGanador, bebidaEnCuerpo)" +
+            sql = "INSERT INTO " + TABLE + " (nombreGanador, bebidaEnCuerpo)" +
                     "VALUES (?, ?)";
             pStmt = conn.prepareStatement(sql);
 
