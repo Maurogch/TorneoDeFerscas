@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 import UTN.Models.Ganador;
 import UTN.Models.Humano;
-import org.apache.commons.dbutils.DbUtils;
 
 public class GanadorDAO {
     private static final String TABLE = "Ganadores";
