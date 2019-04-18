@@ -40,6 +40,8 @@ public class GanadorDAO {
             System.out.println("Error connecting to database");
             e.printStackTrace();
         } finally {
+            //Clean-up environment, using DbUtils repository
+            //closeQuietly = Close a Connection, avoid closing if null and hide any SQLExceptions that occur.
             DbUtils.closeQuietly(rs);
             DbUtils.closeQuietly(stmt);
             DbUtils.closeQuietly(conn);
