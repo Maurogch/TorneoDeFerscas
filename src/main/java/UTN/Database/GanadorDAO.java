@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Objects;
 import UTN.Models.Ganador;
 import UTN.Models.Humano;
+import org.apache.commons.dbutils.DbUtils;
+
 
 public class GanadorDAO {
     private static final String TABLE = "Ganadores";
@@ -33,13 +35,14 @@ public class GanadorDAO {
 
                 ganadores.add(new Ganador(id, nombre, liquido));
             }
-            rs.close();
-            stmt.close();
-            conn.close();
         } catch (SQLException e) {
             //Handle errors for JDBCConnection
             System.out.println("Error connecting to database");
             e.printStackTrace();
+        } finally {
+            DbUtils.closeQuietly(rs);
+            DbUtils.closeQuietly(stmt);
+            DbUtils.closeQuietly(conn);
         }
 
         return ganadores;
@@ -62,11 +65,12 @@ public class GanadorDAO {
 
             affectedRows = pStmt.executeUpdate();
 
-            pStmt.close();
-            conn.close();
         } catch (SQLException e) {
             System.out.println("Error connecting to database");
             e.printStackTrace();
+        } finally {
+            DbUtils.closeQuietly(pStmt);
+            DbUtils.closeQuietly(conn);
         }
 
         return affectedRows;
