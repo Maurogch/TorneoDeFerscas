@@ -40,7 +40,6 @@ public class GanadorDAO {
             //Handle errors for JDBCConnection
             System.out.println("Error connecting to database");
             e.printStackTrace();
-
         }
 
         return ganadores;
