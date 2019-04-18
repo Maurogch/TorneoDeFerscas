@@ -21,16 +21,14 @@ public class JDBCConnection {
 
     public static JDBCConnection getInstance() {
         instance = Optional.ofNullable(instance).orElse(new JDBCConnection());
-        try {
-            if(instance.getConnection().isClosed()) //Check is current connection is closed
-                instance = new JDBCConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
         return instance;
     }
 
     private JDBCConnection(){
+    }
+
+    public Connection getConnection() {
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
@@ -41,9 +39,6 @@ public class JDBCConnection {
             e.printStackTrace();
             System.out.println("Error connecting to database");
         }
-    }
-
-    public Connection getConnection() {
         return conn;
     }
 }
