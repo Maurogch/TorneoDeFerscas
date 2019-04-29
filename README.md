@@ -1,6 +1,6 @@
  ![](tpInterfaces.png)
 
-# Torneo De Ferscas
+# Torneo De Frescas
 Primer TP Laboratorio 5 - Strategy Pattern
 
 ## Qué es Maven
